@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AgentMovement : MonoBehaviour
 {
@@ -28,6 +29,14 @@ public class AgentMovement : MonoBehaviour
 
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
-    
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<AgentMovement>())
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+
+
 }
