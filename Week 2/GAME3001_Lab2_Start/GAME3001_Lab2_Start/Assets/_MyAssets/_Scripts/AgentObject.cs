@@ -15,15 +15,9 @@ public class AgentObject : MonoBehaviour
     //Note I only want the above property here, so the class cannot be abstract
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         Debug.Log("Starting Agent...");
-        TargetPosition = m.transform.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        TargetPosition = m_target.transform.position;
     }
 }
