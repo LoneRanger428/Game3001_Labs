@@ -6,6 +6,8 @@ public class StarShip : AgentObject
 {
     [SerializeField] float movementSpeed;
     [SerializeField] float rotationSpeed;
+    bool _resetThis = false;
+    Vector2 _tempPosition;
 
     Rigidbody2D rb;
     // Start is called before the first frame update
@@ -14,6 +16,7 @@ public class StarShip : AgentObject
         base.Start();
         Debug.Log("Starting Starship!");
         rb = GetComponent<Rigidbody2D>();
+        _tempPosition = transform.position; 
     }
 
     // Update is called once per frame
@@ -56,5 +59,14 @@ public class StarShip : AgentObject
 
         //Move along the forward sector 
         rb.velocity = transform.up * movementSpeed;
+    }
+
+    public void resetAll()
+    {
+        rb.velocity = Vector2.zero;
+        transform.rotation = Quaternion.identity;
+        _resetThis = true;
+        transform.position = _tempPosition;
+
     }
 }
