@@ -1,72 +1,105 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarShip : AgentObject
+public class Starship : AgentObject
 {
     [SerializeField] float movementSpeed;
     [SerializeField] float rotationSpeed;
-    bool _resetThis = false;
-    Vector2 _tempPosition;
+    [SerializeField] float whiskerLenght;
+    // Add fields for whisper length, angle and avoidance weight.
+    private Rigidbody2D rb;
 
-    Rigidbody2D rb;
-    // Start is called before the first frame update
-    new void Start()
+    new void Start() // Note the new.
     {
-        base.Start();
-        Debug.Log("Starting Starship!");
+        base.Start(); // Explicitly invoking Start of AgentObject.
+        Debug.Log("Starting Starship.");
         rb = GetComponent<Rigidbody2D>();
-        _tempPosition = transform.position; 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(TargetPosition != null)
+        if (TargetPosition != null)
         {
-            Seek();
+            // Seek();
             SeekForward();
+            // Add call to AvoidObstacles.
+            //
+            CastWhiskers();
         }
     }
 
-    private void Seek()
+    private void AvoidObstacles()
     {
-        //Calculate desired velocity using kinematic seek equation.
-        Vector2 desiredVelocity = (TargetPosition - transform.position).normalized*movementSpeed;
+        // Cast whiskers to detect obstacles.
+        //
+        //
 
-        //Calculating the steering force
-        //Check current velocity and only apply for difference between desired velocity and current one;
-        Vector2 steeringForce = desiredVelocity - rb.velocity;
-
-        //Apply the steering force to the agent
-        rb.AddForce(steeringForce);
+        // Adjust rotation based on detected obstacles.
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+    }
+    private bool CastWhiskers()
+    {
+        bool hitResult = false;
+        Color RayColor = Color.red;
+        Vector2 wiskerDirection = Quaternion.Euler(0, 0, 60) * transform.up;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, wiskerDirection, whiskerLenght);
+        Debug.DrawRay(transform.position, wiskerDirection * 5, Color.magenta);
+        return hitResult;
     }
 
-    private void SeekForward() //Always move forwrd while rotate to the target
+    private void RotateCounterClockwise()
     {
-        //Calculate direction to the target
+        // Rotate counterclockwise based on rotationSpeed and a weight.
+        // 
+    }
+
+    private void RotateClockwise()
+    {
+        // Rotate clockwise based on rotationSpeed and a weight.
+        // 
+    }
+
+    // Add CastWhisker method. I removed it entirely.
+    //
+    //
+    //
+    //
+
+    private void SeekForward() // A seek with rotation to target but only moving along forward vector.
+    {
+        // Calculate direction to the target.
         Vector2 directionToTarget = (TargetPosition - transform.position).normalized;
 
-        //Calculate the angle to rotate towards the target
-        float targetAngle = Mathf.Atan2(directionToTarget.y , directionToTarget.x)*Mathf.Rad2Deg;
+        // Calculate the angle to rotate towards the target.
+        float targetAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg + 90.0f; // Note the +90 when converting from Radians.
 
-        //Smoothly rotate towards the target
+        // Smoothly rotate towards the target.
         float angleDifference = Mathf.DeltaAngle(targetAngle, transform.eulerAngles.z);
-        float rotationStep = rotationSpeed*Time.deltaTime;
+        float rotationStep = rotationSpeed * Time.deltaTime;
         float rotationAmount = Mathf.Clamp(angleDifference, -rotationStep, rotationStep);
-
         transform.Rotate(Vector3.forward, rotationAmount);
 
-        //Move along the forward sector 
+        // Move along the forward vector using Rigidbody2D.
         rb.velocity = transform.up * movementSpeed;
     }
 
-    public void resetAll()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        rb.velocity = Vector2.zero;
-        transform.rotation = Quaternion.identity;
-        _resetThis = true;
-        transform.position = _tempPosition;
-
+        if (other.gameObject.tag == "Target")
+        {
+            GetComponent<AudioSource>().Play();
+            // What is this!?! Didn't you learn how to create a static sound manager last week in 1017?
+        }
     }
 }
