@@ -7,7 +7,7 @@ public class TileScript : MonoBehaviour
     [SerializeField] private GameObject[] neighbourTiles;
     [SerializeField] private Color original;
     public TileStatus status = TileStatus.UNVISITED;
-    
+
     public void SetNeighbourTile(int index, GameObject tile)
     {
         neighbourTiles[index] = tile;
