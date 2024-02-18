@@ -27,22 +27,34 @@ public class ClickDragScript : MonoBehaviour
                     currentlyDraggedObject = rb2d;
                     offset = rb2d.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     // Add extra behaviour for mines in Lab 4 part 1.
-                    if (currentlyDraggedObject.gameObject.tag == "Mines")
+                    if (currentlyDraggedObject.gameObject.tag == "Mines" || currentlyDraggedObject.gameObject.tag == "Ship"  ||
+                        currentlyDraggedObject.gameObject.tag == "Planet")
                     {
-                        Vector2 mineIndex = currentlyDraggedObject.gameObject.GetComponent<NavigationObject>().GetGridIndex();
-                        //GridManager.Instance.GetGrid()[(int)mineIndex.y, (int)mineIndex.x].GetComponent<TileScript>().ToggleImpassable(true);
+                        Vector2 tileIndex = currentlyDraggedObject.gameObject.GetComponent<NavigationObject>().GetGridIndex();
+                        GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.UNVISITED);
                     }
                 }
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            // Add extra behaviour for mines in Lab 4 part 1.
+            if (!isDragging) return;
+
+
+            Vector2 tileIndex = currentlyDraggedObject.gameObject.GetComponent<NavigationObject>().GetGridIndex();
             if (currentlyDraggedObject.gameObject.tag == "Mines") // We have relesed a mine tile
             {
-                Vector2 mineIndex = currentlyDraggedObject.gameObject.GetComponent<NavigationObject>().GetGridIndex();
+                GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.IMPASSABLE);
             }
-
+            else if (currentlyDraggedObject.gameObject.tag == "Ship")
+            {
+                GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.START);
+            }
+            else if (currentlyDraggedObject.gameObject.tag == "Planet")
+            {
+                GridManager.Instance.SetTileCosts(currentlyDraggedObject.GetComponent<NavigationObject>().GetGridIndex());
+                GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.GOAL);
+            }
             // Stop dragging.
             isDragging = false;
             currentlyDraggedObject = null;

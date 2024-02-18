@@ -246,9 +246,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 4813588358410622281, guid: 8afe5d5c721b9924291ee8ee98c0f9f9, type: 3}
   minePrefab: {fileID: 6537141037928142162, guid: 3aae427a40059ed4aab13ca36c2d691b, type: 3}
+  panelParent: {fileID: 1227464886}
+  tilePanelPrefab: {fileID: 5998849662827022959, guid: 5088be9ba20f48c4ca6c00a5d93b28b8, type: 3}
   colors:
   - {r: 1, g: 0.020754695, b: 0.020754695, a: 1}
   - {r: 0.9582304, g: 1, b: 0, a: 1}
+  baseTileCost: 0
+  useManhattanHeuristic: 1
 --- !u!4 &571498480
 Transform:
   m_ObjectHideFlags: 0
@@ -358,7 +362,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1227464887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -379,6 +384,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockToGrid: 1
+--- !u!1 &1227464886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1227464887}
+  m_Layer: 5
+  m_Name: PlanetParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1227464887
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227464886}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 600459654}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 32, y: -32}
+  m_SizeDelta: {x: 1024, y: 786}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1576592612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -661,6 +701,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet
       objectReference: {fileID: 0}
+    - target: {fileID: 7429664672012497294, guid: 27e9559a357116b47afd7409e759ebe7, type: 3}
+      propertyPath: m_TagString
+      value: Planet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -676,6 +720,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4350412689263730352, guid: f365dd11c3c60e948847b62a3097a15b, type: 3}
       propertyPath: m_Name
+      value: Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 4350412689263730352, guid: f365dd11c3c60e948847b62a3097a15b, type: 3}
+      propertyPath: m_TagString
       value: Ship
       objectReference: {fileID: 0}
     - target: {fileID: 4897056187513173748, guid: f365dd11c3c60e948847b62a3097a15b, type: 3}
