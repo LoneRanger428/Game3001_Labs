@@ -40,23 +40,23 @@ public class ClickDragScript : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (!isDragging) return; // Early-exit if.
-            // TODO: Comment out for Lab 6a. Explain we don't want to set tile statuses.
-            Vector2 tileIndex = currentlyDraggedObject.gameObject.GetComponent<NavigationObject>().GetGridIndex();
-            if (currentlyDraggedObject.gameObject.tag == "Mines") // We've released a mines tile.
-            {
-                GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.IMPASSABLE);
-                GridManager.Instance.ConnectGrid();
-            }
-            else if (currentlyDraggedObject.gameObject.tag == "Ship") // We've released a ship tile.
-            {
-                GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.START);
-            }
-            else if (currentlyDraggedObject.gameObject.tag == "Planet") // We've released a planet tile.
-            {
-                GridManager.Instance.SetTileCosts(currentlyDraggedObject.GetComponent<NavigationObject>().GetGridIndex());
-                GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.GOAL);
-            }
+            //if (!isDragging) return; // Early-exit if.
+            //// TODO: Comment out for Lab 6a. Explain we don't want to set tile statuses.
+            //Vector2 tileIndex = currentlyDraggedObject.gameObject.GetComponent<NavigationObject>().GetGridIndex();
+            //if (currentlyDraggedObject.gameObject.tag == "Mines") // We've released a mines tile.
+            //{
+            //    GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.IMPASSABLE);
+            //    GridManager.Instance.ConnectGrid();
+            //}
+            //else if (currentlyDraggedObject.gameObject.tag == "Ship") // We've released a ship tile.
+            //{
+            //    GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.START);
+            //}
+            //else if (currentlyDraggedObject.gameObject.tag == "Planet") // We've released a planet tile.
+            //{
+            //    GridManager.Instance.SetTileCosts(currentlyDraggedObject.GetComponent<NavigationObject>().GetGridIndex());
+            //    GridManager.Instance.GetGrid()[(int)tileIndex.y, (int)tileIndex.x].GetComponent<TileScript>().SetStatus(TileStatus.GOAL);
+            //}
             // Stop dragging.
             // Comment out to here.
             isDragging = false;
